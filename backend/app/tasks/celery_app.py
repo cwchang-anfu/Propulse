@@ -29,10 +29,10 @@ celery_app.conf.update(
 
 # 定時任務設定
 celery_app.conf.beat_schedule = {
-    # 每小時檢查並分析未分析的新聞
+    # 每 15 分鐘檢查並分析未分析的新聞
     "analyze-pending-articles": {
         "task": "app.tasks.analysis_tasks.analyze_pending_articles",
-        "schedule": crontab(minute=0),  # 每小時整點執行
+        "schedule": crontab(minute="*/15"),  # 每 15 分鐘執行（可改為 */5 或 */30）
     },
     # 每月 1 日凌晨 2 點生成上月報告
     "generate-monthly-report": {
